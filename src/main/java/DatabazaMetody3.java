@@ -1,28 +1,18 @@
 import java.sql.*;
 
-public class DatabazaMetody {
+public class DatabazaMetody3 {
 
     private static Connection conn = null;
 
-    public static Connection pripojsa() throws SQLException {
-        // Napajame sa na databazu
-        String url = "jdbc:mysql://localhost:3306/kniznica_db";
-        String username = "root";
-        String password = "password";
-        System.out.println("Spájam sa s databázou ...");
-
-        if (conn == null) { // vytvorili sme tzv. singleton
-            conn = DriverManager.getConnection(url, username, password);
-            System.out.println("Databáza je pripojená!");
-        }
-
+    public static Connection getConn() {
         return conn;
     }
 
-    public static void aktualizuj() throws SQLException {
-        // Napajame sa na databazu
-        Connection conn = pripojsa();
+    public static void setConn(Connection conn) {
+        DatabazaMetody3.conn = conn;
+    }
 
+    public static void aktualizuj() throws SQLException {
         // create the java mysql update preparedstatement
         String query = "UPDATE knihy SET nazov = ?, autor=?, rok_vydania=? WHERE id = ?";
         PreparedStatement preparedStmt = conn.prepareStatement(query);
@@ -36,8 +26,6 @@ public class DatabazaMetody {
 
 
     public static void odstran() throws SQLException {
-        Connection conn = pripojsa();
-
         // the mysql insert statement
         String query = "DELETE FROM knihy WHERE id = ?";
         PreparedStatement preparedStmt = conn.prepareStatement(query);
@@ -48,8 +36,6 @@ public class DatabazaMetody {
     }
 
     public static void uloz() throws SQLException {
-        Connection conn = pripojsa();
-
 
         String query = "INSERT INTO knihy (nazov, autor, zaner, rok_vydania) VALUES (?, ?, ?, ?)";
 
@@ -70,8 +56,6 @@ public class DatabazaMetody {
 
 
     public static void vyber() throws SQLException {
-        Connection conn = pripojsa();
-
 
         // Vyberame udaje, resp. zaznamy z tabulky knihy
         System.out.println("Výber záznamov z tabuľky knihy");

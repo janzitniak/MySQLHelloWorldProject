@@ -1,4 +1,3 @@
-import javax.xml.crypto.Data;
 import java.sql.*;
 
 public class DatabazaHelloWorld {
@@ -7,5 +6,6 @@ public class DatabazaHelloWorld {
         DatabazaMetody.odstran();
         DatabazaMetody.aktualizuj();
         DatabazaMetody.vyber();
+        //TODO Prestávka do 19.10
     }
 }

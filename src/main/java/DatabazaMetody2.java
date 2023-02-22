@@ -1,28 +1,10 @@
 import java.sql.*;
 
-public class DatabazaMetody {
+public class DatabazaMetody2 {
 
-    private static Connection conn = null;
+    // neexistuje staticka premenna triedy s nazvom con triedy Connection, cize myslim toto Connection conn = null
 
-    public static Connection pripojsa() throws SQLException {
-        // Napajame sa na databazu
-        String url = "jdbc:mysql://localhost:3306/kniznica_db";
-        String username = "root";
-        String password = "password";
-        System.out.println("Spájam sa s databázou ...");
-
-        if (conn == null) { // vytvorili sme tzv. singleton
-            conn = DriverManager.getConnection(url, username, password);
-            System.out.println("Databáza je pripojená!");
-        }
-
-        return conn;
-    }
-
-    public static void aktualizuj() throws SQLException {
-        // Napajame sa na databazu
-        Connection conn = pripojsa();
-
+    public static void aktualizuj(Connection conn) throws SQLException {
         // create the java mysql update preparedstatement
         String query = "UPDATE knihy SET nazov = ?, autor=?, rok_vydania=? WHERE id = ?";
         PreparedStatement preparedStmt = conn.prepareStatement(query);
@@ -35,9 +17,7 @@ public class DatabazaMetody {
     }
 
 
-    public static void odstran() throws SQLException {
-        Connection conn = pripojsa();
-
+    public static void odstran(Connection conn) throws SQLException {
         // the mysql insert statement
         String query = "DELETE FROM knihy WHERE id = ?";
         PreparedStatement preparedStmt = conn.prepareStatement(query);
@@ -47,9 +27,7 @@ public class DatabazaMetody {
 
     }
 
-    public static void uloz() throws SQLException {
-        Connection conn = pripojsa();
-
+    public static void uloz(Connection conn) throws SQLException {
 
         String query = "INSERT INTO knihy (nazov, autor, zaner, rok_vydania) VALUES (?, ?, ?, ?)";
 
@@ -69,10 +47,7 @@ public class DatabazaMetody {
     }
 
 
-    public static void vyber() throws SQLException {
-        Connection conn = pripojsa();
-
-
+    public static void vyber(Connection conn) throws SQLException {
         // Vyberame udaje, resp. zaznamy z tabulky knihy
         System.out.println("Výber záznamov z tabuľky knihy");
 
